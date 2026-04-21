@@ -15,19 +15,21 @@ const projects = [
 
 export default function Home() {
   return (
-    <main>
-      <p className="eyebrow">Portfolio</p>
-      <h1>私のポートフォリオ</h1>
-      <p>
+    <main className="grid gap-6">
+      <p className="eyebrow text-xs font-semibold tracking-[0.08em] uppercase text-blue-600">
+        Portfolio
+      </p>
+      <h1 className="text-4xl font-bold">私のポートフォリオ</h1>
+      <p className="text-sm text-slate-700 sm:text-base">
         GitHub Pages で公開する前提の、シンプルで高速なポートフォリオサイトです。
       </p>
       <section>
-        <h2>Projects</h2>
-        <ul>
+        <h2 className="text-2xl font-semibold">Projects</h2>
+        <ul className="grid gap-3">
           {projects.map((project) => (
-            <li key={project.title}>
-              <h3>{project.title}</h3>
-              <p>{project.desc}</p>
+            <li key={project.title} className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+              <h3 className="m-0 mb-1 text-lg font-medium">{project.title}</h3>
+              <p className="text-slate-700">{project.desc}</p>
             </li>
           ))}
         </ul>

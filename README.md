@@ -23,7 +23,14 @@ npm run build
 `next.config.mjs` の `output: "export"` により `out/` が生成され、  
 GitHub Actions からそのまま公開されます。
 
-### 3) GitHub Actions設定
+### 3) Tailwind CSS
+
+Tailwind CSSを最小構成で導入済みです。`app/globals.css` に読み込み済みで、  
+コンポーネント側は `className` でユーティリティを使える状態です。
+
+必要に応じて `npm install` 後に `node_modules` を生成してください。
+
+### 4) GitHub Actions設定
 
 - `.github/workflows/gh-pages.yml` を追加済み
 - `main` への push で自動ビルド・デプロイ
