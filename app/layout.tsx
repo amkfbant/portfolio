@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata = {
-  title: "My Portfolio",
-  description: "Personal portfolio built on Next.js and GitHub Pages.",
+  title: "マイポートフォリオ",
+  description: "ポートフォリオサイト",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
