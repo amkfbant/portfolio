@@ -6,8 +6,15 @@ export async function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const project = projects.find((item) => item.slug === params.slug);
+type PageParams = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
+
+export async function generateMetadata({ params }: PageParams) {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
   if (!project) {
     return {
       title: "Not Found | My Portfolio",
@@ -20,8 +27,9 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   };
 }
 
-export default function ProjectDetailPage({ params }: { params: { slug: string } }) {
-  const project = projects.find((item) => item.slug === params.slug);
+export default async function ProjectDetailPage({ params }: PageParams) {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
   if (!project) {
     notFound();
   }
