@@ -1,0 +1,76 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run checks (if defined)
+        run: |
+          npm run lint --if-present
+          npm run test --if-present
+
+      - name: Build site
+        run: npm run build
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
+
+      - name: Select static output directory
+        id: pages-dir
+        run: |
+          if [ -d out ]; then
+            echo "dir=out" >> "$GITHUB_OUTPUT"
+          elif [ -d dist ]; then
+            echo "dir=dist" >> "$GITHUB_OUTPUT"
+          elif [ -d build ]; then
+            echo "dir=build" >> "$GITHUB_OUTPUT"
+          else
+            echo "No static directory found. Expected one of: out, dist, build."
+            exit 1
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ steps.pages-dir.outputs.dir }}
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - id: deploy
+        name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
