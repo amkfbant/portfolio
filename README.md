@@ -2,6 +2,8 @@
 
 GitHub Pages用のポートフォリオです。
 
+**公開URL:** https://amkfbant.github.io/portfolio/
+
 この構成は、`username.github.io` 形式のユーザー/Organizationサイトでは `basePath` を使わず、  
 それ以外のリポジトリサイトでは `/{repo}` を自動で適用するようにしています。
 
