@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { projects } from "./projects/data";
+import { withBasePath } from "../lib/base-path";
 
 export default function Home() {
   return (
@@ -44,7 +45,7 @@ export default function Home() {
           <div className="achievement-image-wrap">
             <p className="achievement-image-caption text-accent">42 Tokyo Holy Graph</p>
             <Image
-              src="/42cc.png"
+              src={withBasePath("/42cc.png")}
               alt="42tokyo Holy Graph"
               width={1200}
               height={800}
@@ -54,7 +55,7 @@ export default function Home() {
           <div className="achievement-image-wrap">
             <p className="achievement-image-caption text-accent">42 Level</p>
             <Image
-              src="/42level.png"
+              src={withBasePath("/42level.png")}
               alt="42tokyo profile level"
               width={1200}
               height={800}
