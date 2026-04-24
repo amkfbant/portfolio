@@ -9,7 +9,6 @@ const CONTENT_SLUG_BY_PROJECT: Record<string, string> = {
   "42-cub3d": "cub3d",
   "42-ft-irc": "ft-irc",
   "42-minishell": "minishell",
-  "42-ft-transcendence": "portfolio-sequence",
 };
 
 export async function generateStaticParams() {
@@ -115,8 +114,8 @@ export default async function ProjectDetailPage({ params }: PageParams) {
         </section>
       ) : null}
 
-      <section className="flex flex-wrap gap-3">
-        {project.demoUrl && (
+      {project.demoUrl ? (
+        <section className="flex flex-wrap gap-3">
           <a
             href={project.demoUrl}
             className="btn btn-primary"
@@ -125,18 +124,8 @@ export default async function ProjectDetailPage({ params }: PageParams) {
           >
             デモ
           </a>
-        )}
-        {project.githubUrl && (
-          <a
-            href={project.githubUrl}
-            className="btn btn-secondary"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
-        )}
-      </section>
+        </section>
+      ) : null}
     </main>
   );
 }
