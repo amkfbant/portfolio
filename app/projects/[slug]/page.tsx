@@ -1,6 +1,16 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "../data";
+import { getProjectContentBySlug } from "../../../lib/project-content";
+import { withBasePath } from "../../../lib/base-path";
+import MermaidRenderer from "../MermaidRenderer";
+
+const CONTENT_SLUG_BY_PROJECT: Record<string, string> = {
+  "42-cub3d": "cub3d",
+  "42-ft-irc": "ft-irc",
+  "42-minishell": "minishell",
+  "42-ft-transcendence": "portfolio-sequence",
+};
 
 export async function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -34,11 +44,16 @@ export default async function ProjectDetailPage({ params }: PageParams) {
     notFound();
   }
 
+  const contentSlug = CONTENT_SLUG_BY_PROJECT[project.slug];
+  const projectContent = contentSlug
+    ? await getProjectContentBySlug(contentSlug, { stripTitle: true })
+    : null;
+
   return (
     <main className="grid gap-6">
       <section className="grid gap-2">
-        <Link href="/projects" className="text-sm text-blue-700 hover:text-blue-900">
-          ← 制作実績一覧に戻る
+        <Link href="/" className="text-sm text-blue-700 hover:text-blue-900">
+          ← ホームに戻る
         </Link>
         <h1 className="hero-title" style={{ fontSize: "2rem" }}>
           {project.title}
@@ -49,6 +64,15 @@ export default async function ProjectDetailPage({ params }: PageParams) {
       <section className="card">
         <h2 className="section-title">プロジェクト概要</h2>
         <p className="section-text">{project.description}</p>
+        {project.demoVideo ? (
+          <video
+            className="demo-video"
+            src={withBasePath(project.demoVideo)}
+            controls
+            preload="metadata"
+            playsInline
+          />
+        ) : null}
         <p className="section-text">期間: {project.period}</p>
         <p className="section-text">役割: {project.role}</p>
       </section>
@@ -79,6 +103,17 @@ export default async function ProjectDetailPage({ params }: PageParams) {
         <h2 className="section-title">成果</h2>
         <p className="section-text">{project.outcome}</p>
       </section>
+
+      {projectContent ? (
+        <section className="card article-content">
+          <h2 className="section-title">技術詳細</h2>
+          <p className="section-text" style={{ marginBottom: "1rem" }}>
+            最終更新: {new Date(projectContent.updatedAt).toLocaleDateString("ja-JP")}
+          </p>
+          <MermaidRenderer />
+          <div dangerouslySetInnerHTML={{ __html: projectContent.content }} />
+        </section>
+      ) : null}
 
       <section className="flex flex-wrap gap-3">
         {project.demoUrl && (

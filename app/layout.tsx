@@ -11,6 +11,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="ja">
       <body>
         <div className="container">
+          <header className="site-nav">
+            <a href="/" className="site-brand">
+              Portfolio
+            </a>
+            <nav className="site-links">
+              <a href="/">ホーム</a>
+            </nav>
+          </header>
           {children}
         </div>
       </body>
