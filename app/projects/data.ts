@@ -24,7 +24,7 @@ export const projects: Project[] = [
       "フルスタック Web アプリとして Pong を実装。認証、対戦、管理機能を一体で設計したチーム課題です。",
     description:
       "42 Tokyo の最終課題として、4 名のチーム開発で 3D Pong のリアルタイム対戦プラットフォームをフルスタック実装しました。pnpm workspace の `packages/{backend,frontend}` モノレポで Fastify + Socket.IO のバックエンドと Vite + Babylon.js のフロントエンドを分離し、60fps のサーバ権威型ゲームループ、Google OAuth 2.0 と JWT のハイブリッド認証、自前 SPA ルーター、Nginx での TLS / WebSocket 終端まで一気通貫で設計しました。チーム内では責務を分担しつつ、認証・通信・セキュリティの基盤レイヤーを横断的に整えるロールを担いました。",
-    period: "",
+    period: "~2025/11",
     role: "4 名チーム開発における基盤担当として、サーバ権威型ゲームループの設計と実装、OAuth2 → JWT → Socket.IO ハンドシェイク認証フロー、SQLite トーナメントブラケット生成、Nginx での TLS / WSS リバースプロキシ設定、入力検証・XSS / SQLi 対策などのセキュリティ多層防御の整備を担当",
     category: "フルスタックWebアプリ",
     scope: "42Tokyoチーム課題（4名）",
