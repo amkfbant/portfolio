@@ -8,7 +8,10 @@ import MermaidRenderer from "../MermaidRenderer";
 const CONTENT_SLUG_BY_PROJECT: Record<string, string> = {
   "42-cub3d": "cub3d",
   "42-ft-irc": "ft-irc",
+  "42-ft-transcendence": "ft-transcendence",
   "42-minishell": "minishell",
+  "btc-trading-system": "btc-trading-system",
+  "pseudo-crm-ai-internship": "pseudo-crm-ai-internship",
 };
 
 export async function generateStaticParams() {
